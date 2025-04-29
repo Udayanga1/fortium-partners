@@ -18,8 +18,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final ModelMapper mapper;
     private final EmployeeRepository repository;
 
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
     @Override
     public Employee add(Employee employee) {
+        if (!employee.getEmail().matches(EMAIL_REGEX)) {
+            throw new IllegalArgumentException("Invalid email address: " + employee.getEmail());
+        }
         LocalDateTime currentTime = LocalDateTime.now();
         EmployeeEntity entity = mapper.map(employee, EmployeeEntity.class);
         entity.setTimeCreated(currentTime);
