@@ -8,11 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/employee")
 @RequiredArgsConstructor
-@CrossOrigin
 public class EmployeeController {
 
     private final EmployeeService service;
@@ -31,4 +32,23 @@ public class EmployeeController {
         List<Employee> list = service.getAll();
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> searchById(@PathVariable Integer id) {
+        Employee item = service.searchById(id);
+        return item != null ?
+                ResponseEntity.ok(item) :
+                ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Employee> update(@PathVariable Integer id, @RequestBody Employee updatedEmployee) {
+        Employee employee = service.update(id, updatedEmployee);
+        if (employee != null) {
+            return ResponseEntity.ok(employee);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 }

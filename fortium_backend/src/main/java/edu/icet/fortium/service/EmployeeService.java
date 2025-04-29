@@ -14,4 +14,8 @@ public interface EmployeeService {
     Employee add(Employee employee);
 
     List<Employee> getAll();
+
+    Employee searchById(Integer id);
+
+    Employee update(Integer id, Employee updatedEmployee);
 }

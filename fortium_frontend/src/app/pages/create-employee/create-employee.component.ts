@@ -15,9 +15,11 @@ export class CreateEmployeeComponent {
   department: string = '';
 
   addCustomer(event: Event) {
-    console.log("Name:", this.empName);
-    console.log("Email:", this.empEmail);
-    console.log("Department:", this.department);
+
+    if(this.empName.length==0 || this.empEmail.length==0 || this.department.length==0) {
+      alert("Please fill all the fields")
+      return
+    }
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -25,7 +27,7 @@ export class CreateEmployeeComponent {
     const raw = JSON.stringify({
       "name": this.empName,
       "email": this.empEmail,
-      "type": this.department
+      "department": this.department
     });
 
     const requestOptions:any = {
@@ -37,16 +39,10 @@ export class CreateEmployeeComponent {
 
     fetch("http://localhost:8080/employee/add", requestOptions)
       .then((response) => response.text())
-      .then((text) => console.log(text))
+      .then((text) => {
+        alert("Employee added successfully");
+      })
       .catch((error) => console.error(error));
-
-    // fetch('https://fakestoreapi.com/products/category/electronics')
-    // .then(response => response.json())
-    // .then(data => {
-    //   console.log(data);
-    //   this.products.set(data);
-    // });
-
 
     this.empName = '';
     this.empEmail = '';

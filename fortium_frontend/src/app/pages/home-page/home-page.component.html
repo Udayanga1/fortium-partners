@@ -9,17 +9,22 @@
                 <th scope="col">Department</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Updated At</th>
+                <th scope="col">Actions</th>
               </tr>
               
             </thead>
             <tbody>
                 @for (employee of allEmployees; track $index) {
                     <tr>
-                      <th>{{employee.id}}</th>
-                      <td>{{employee.name}}</td>
-                      <td>{{employee.department}}</td>
-                      <td>{{employee.createdAt | date: 'MMMM d, y, h:mm a'}}</td>
-                      <td>{{employee.updatedAt | date: 'MMMM d, y, h:mm a'}}</td>
+                        <td>{{employee.id}}</td>
+                        <td>{{employee.name}}</td>
+                        <td>{{employee.department}}</td>
+                        <td>{{employee.createdAt | date: 'MMMM d, y, h:mm a'}}</td>
+                        <td>{{employee.updatedAt | date: 'MMMM d, y, h:mm a'}}</td>
+                        <td>
+                            <button type="button" class="btn btn-warning" aria-label="Close"><a class="nav-link" [routerLink]="['/edit', employee.id]">Edit</a></button>
+                            <button type="button" class="btn btn-danger ms-2" aria-label="Close"><a class="nav-link">Delete</a></button>
+                        </td>
                     </tr>
                 }
             </tbody>

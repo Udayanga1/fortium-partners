@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         LocalDateTime currentTime = LocalDateTime.now();
         EmployeeEntity entity = mapper.map(employee, EmployeeEntity.class);
         entity.setCreatedAt(currentTime);
-        entity.setCreatedAt(currentTime);
+        entity.setUpdatedAt(currentTime);
         EmployeeEntity saved = repository.save(entity);
         return mapper.map(saved, Employee.class);
     }
@@ -42,6 +42,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<EmployeeEntity> all = repository.findAll();
         all.forEach(employeeEntity -> employeeList.add(mapper.map(employeeEntity, Employee.class)));
         return employeeList;
+    }
+
+    @Override
+    public Employee searchById(Integer id) {
+        return repository.findById(id)
+                .map(employeeEntity -> mapper.map(employeeEntity, Employee.class))
+                .orElse(null);
+    }
+
+    @Override
+    public Employee update(Integer id, Employee updatedEmployee) {
+        EmployeeEntity entity = repository.findById(id).orElse(null);
+        if (entity == null) {
+            return null;
+        }
+
+        entity.setName(updatedEmployee.getName());
+        entity.setEmail(updatedEmployee.getEmail());
+        entity.setDepartment(updatedEmployee.getDepartment());
+        entity.setUpdatedAt(LocalDateTime.now());
+
+        EmployeeEntity updatedEntity = repository.save(entity);
+        return mapper.map(updatedEntity, Employee.class);
     }
 
 //    List<AuctionItem> auctionItemList = new ArrayList<>();
