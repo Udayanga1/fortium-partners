@@ -23,7 +23,9 @@
                         <td>{{employee.updatedAt | date: 'MMMM d, y, h:mm a'}}</td>
                         <td>
                             <button type="button" class="btn btn-warning" aria-label="Close"><a class="nav-link" [routerLink]="['/edit', employee.id]">Edit</a></button>
-                            <button type="button" class="btn btn-danger ms-2" aria-label="Close"><a class="nav-link">Delete</a></button>
+                            <button type="button" class="btn btn-danger ms-2" (click)="deleteEmployee(employee.id!)">
+                                Delete
+                              </button>
                         </td>
                     </tr>
                 }

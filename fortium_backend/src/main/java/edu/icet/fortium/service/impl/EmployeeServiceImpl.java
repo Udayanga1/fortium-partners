@@ -67,8 +67,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return mapper.map(updatedEntity, Employee.class);
     }
 
-//    List<AuctionItem> auctionItemList = new ArrayList<>();
-//    List<AuctionItemEntity> all = repository.findAll();
-//        all.forEach(auctionItemEntity -> auctionItemList.add(modelMapper.map(auctionItemEntity, AuctionItem.class)));
-//        return auctionItemList;
+    @Override
+    public boolean delete(Integer id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }

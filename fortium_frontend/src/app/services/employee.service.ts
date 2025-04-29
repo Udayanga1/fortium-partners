@@ -14,16 +14,16 @@ export class EmployeeService {
     this.employeeList.set([...this.employeeList(), employee]);
   }
 
-  remove(id: number) {
-    this.employeeList.set(this.employeeList().filter((e) => e.id !== id));
-  }
-
   getEmployeeById(id: number): Observable<Employee> {
     return this.http.get<Employee>(`http://localhost:8080/employee/${id}`);
   }
 
   updateEmployee(id: number, employee: Employee): Observable<Employee> {
     return this.http.put<Employee>(`http://localhost:8080/employee/update/${id}`, employee);
+  }
+
+  deleteEmployee(id: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8080/employee/delete/${id}`);
   }
 
   constructor(private http: HttpClient) { }

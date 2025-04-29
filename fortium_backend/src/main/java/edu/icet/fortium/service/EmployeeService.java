@@ -18,4 +18,6 @@ public interface EmployeeService {
     Employee searchById(Integer id);
 
     Employee update(Integer id, Employee updatedEmployee);
+
+    boolean delete(Integer id);
 }
