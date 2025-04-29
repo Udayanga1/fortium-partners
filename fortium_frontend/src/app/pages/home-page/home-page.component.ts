@@ -1,11 +1,31 @@
 import { Component } from '@angular/core';
+import { Employee } from '../../models/employee';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home-page',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
+
+  allEmployees:Employee[] = [];
+
+  ngOnInit(){
+    this.getAllEmployees();
+  }
+  
+  getAllEmployees() {
+    fetch("http://localhost:8080/employee/all")
+    .then((response) => response.json())
+    .then((result) => {
+      this.allEmployees = result;
+      console.log(this.allEmployees);
+      
+    })
+    .catch((error) => console.error(error));
+
+  }
 
 }

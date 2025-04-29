@@ -26,10 +26,10 @@ public class EmployeeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "dept", nullable = false)
-    private DepartmentType type;
+    private DepartmentType department;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime timeCreated;
+    private LocalDateTime createdAt;
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime timeUpdated;
+    private LocalDateTime updatedAt;
 }

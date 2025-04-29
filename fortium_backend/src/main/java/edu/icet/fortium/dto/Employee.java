@@ -17,7 +17,7 @@ public class Employee {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private DepartmentType type;
-    private LocalDateTime timeCreated;
-    private LocalDateTime timeUpdated;
+    private DepartmentType department;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

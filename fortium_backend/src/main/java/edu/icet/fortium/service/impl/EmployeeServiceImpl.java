@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,16 +30,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         LocalDateTime currentTime = LocalDateTime.now();
         EmployeeEntity entity = mapper.map(employee, EmployeeEntity.class);
-        entity.setTimeCreated(currentTime);
-        entity.setTimeUpdated(currentTime);
+        entity.setCreatedAt(currentTime);
+        entity.setCreatedAt(currentTime);
         EmployeeEntity saved = repository.save(entity);
         return mapper.map(saved, Employee.class);
     }
 
-//    @Override
-//    public AuctionItem add(AuctionItem item) {
-//        AuctionItemEntity entity = modelMapper.map(item, AuctionItemEntity.class);
-//        AuctionItemEntity saved = repository.save(entity);
-//        return modelMapper.map(saved, AuctionItem.class);
-//    }
+    @Override
+    public List<Employee> getAll() {
+        List<Employee> employeeList = new ArrayList<>();
+        List<EmployeeEntity> all = repository.findAll();
+        all.forEach(employeeEntity -> employeeList.add(mapper.map(employeeEntity, Employee.class)));
+        return employeeList;
+    }
+
+//    List<AuctionItem> auctionItemList = new ArrayList<>();
+//    List<AuctionItemEntity> all = repository.findAll();
+//        all.forEach(auctionItemEntity -> auctionItemList.add(modelMapper.map(auctionItemEntity, AuctionItem.class)));
+//        return auctionItemList;
 }

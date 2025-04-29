@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employee")
 @RequiredArgsConstructor
@@ -22,5 +24,11 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.CREATED).body("Employee Created");
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to Create Employee");
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Employee>> getAll() {
+        List<Employee> list = service.getAll();
+        return ResponseEntity.ok(list);
     }
 }
