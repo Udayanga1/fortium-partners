@@ -38,14 +38,22 @@ export class CreateEmployeeComponent {
     };
 
     fetch("http://localhost:8080/employee/add", requestOptions)
-      .then((response) => response.text())
-      .then((text) => {
-        alert("Employee added successfully");
-      })
-      .catch((error) => console.error(error));
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then((text) => {
+      alert("Employee added successfully");
+      this.empName = '';
+      this.empEmail = '';
+      this.department = '';
+    })
+    .catch((error) => {
+      console.error('Error adding employee:', error);
+      alert("Failed to add employee. Please check the data or try again.");
+    });
 
-    this.empName = '';
-    this.empEmail = '';
-    this.department = '';
   }
 }

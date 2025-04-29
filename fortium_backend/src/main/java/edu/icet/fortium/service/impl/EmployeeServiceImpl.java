@@ -4,6 +4,7 @@ import edu.icet.fortium.dto.Employee;
 import edu.icet.fortium.entity.EmployeeEntity;
 import edu.icet.fortium.repository.EmployeeRepository;
 import edu.icet.fortium.service.EmployeeService;
+import edu.icet.fortium.util.DepartmentType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -25,9 +26,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee add(Employee employee) {
-        if (!employee.getEmail().matches(EMAIL_REGEX)) {
-            throw new IllegalArgumentException("Invalid email address: " + employee.getEmail());
-        }
+
+        this.validateData(employee);
+
         LocalDateTime currentTime = LocalDateTime.now();
         EmployeeEntity entity = mapper.map(employee, EmployeeEntity.class);
         entity.setCreatedAt(currentTime);
@@ -53,6 +54,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee update(Integer id, Employee updatedEmployee) {
+
+        this.validateData(updatedEmployee);
+
         EmployeeEntity entity = repository.findById(id).orElse(null);
         if (entity == null) {
             return null;
@@ -74,6 +78,26 @@ public class EmployeeServiceImpl implements EmployeeService {
             return true;
         }
         return false;
+    }
+
+    private void validateData(Employee employee) {
+        if (!employee.getEmail().matches(EMAIL_REGEX)) {
+            throw new IllegalArgumentException("Invalid email address: " + employee.getEmail());
+        }
+
+        if (employee.getName() == null || employee.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null, empty, or blank");
+        }
+
+        if (employee.getDepartment() == null || String.valueOf(employee.getDepartment()).trim().isEmpty()) {
+            throw new IllegalArgumentException("Department is required");
+        }
+
+        try {
+            DepartmentType.valueOf(String.valueOf(employee.getDepartment()));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid department: " + employee.getDepartment());
+        }
     }
 
 }
