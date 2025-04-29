@@ -22,7 +22,8 @@
                         <td>{{employee.createdAt | date: 'MMMM d, y, h:mm a'}}</td>
                         <td>{{employee.updatedAt | date: 'MMMM d, y, h:mm a'}}</td>
                         <td>
-                            <button type="button" class="btn btn-warning" aria-label="Close"><a class="nav-link" [routerLink]="['/edit', employee.id]">Edit</a></button>
+                            <button type="button" class="btn btn-success"><a class="nav-link" [routerLink]="['/view', employee.id]">View</a></button>
+                            <button type="button" class="btn btn-warning ms-2"><a class="nav-link" [routerLink]="['/edit', employee.id]">Edit</a></button>
                             <button type="button" class="btn btn-danger ms-2" (click)="deleteEmployee(employee.id!)">
                                 Delete
                               </button>

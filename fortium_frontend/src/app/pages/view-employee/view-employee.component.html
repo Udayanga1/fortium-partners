@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="card mb-4 rounded-3 shadow-sm" style="width: 600px;">
+        <div class="card-header py-3">
+        <h4 class="my-0 fw-normal">Details of {{employee.name}}</h4>
+        </div>
+        <div class="card-body">
+        <!-- <ul class="list-unstyled mt-3 mb-4">
+            <li><span class="h6">Id: </span>{{employee.id}}</li>
+            <li><span class="h6">Name: </span>{{employee.name}}</li>
+            <li><span class="h6">Department:</span>{{employee.department}}</li>
+            <li><span class="h6">CreatedAt: </span>{{employee.createdAt | date: 'MMMM d, y, h:mm a'}}</li>
+            <li><span class="h6">UpdatedAt: </span>{{employee.updatedAt | date: 'MMMM d, y, h:mm a'}}</li>
+        </ul> -->
+        <table class="table">
+            <tr>
+                <th scope="row">Id:</th>
+                <td>{{employee.id}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Name:</th>
+                <td>{{employee.name}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Department:</th>
+                <td>{{employee.department}}</td>
+            </tr>
+            <tr>
+                <th scope="row">CreatedAt:</th>
+                <td>{{employee.createdAt | date: 'MMMM d, y, h:mm a'}}</td>
+            </tr>
+            <tr>
+                <th scope="row">UpdatedAt:</th>
+                <td>{{employee.updatedAt | date: 'MMMM d, y, h:mm a'}}</td>
+            </tr>
+
+        </table>
+        <button routerLink="/" type="button" class="w-100 btn btn-lg btn-outline-primary">Go to home</button>
+        </div>
+    </div>
+</div>
